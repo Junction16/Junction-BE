@@ -1,5 +1,6 @@
 package junction.domain.s3.presentation.controller;
 
+import junction.domain.s3.domain.entity.VideoType;
 import junction.domain.s3.presentation.application.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,20 +20,19 @@ public class S3Controller {
 
     @PostMapping("/image")
     public String s3Image(@RequestPart("image") MultipartFile image,
-                          @RequestPart("name") String name) throws IOException {
+                          @RequestPart("name") String name,
+                          @RequestPart("caption") String caption,
+                          @RequestPart("videoType") VideoType videoType,
+                          @RequestPart("sentence") String sentence) throws IOException {
 
-        return s3Service.storeImage(image, name);
+        return s3Service.storeFile(image, name, caption, videoType, sentence);
     }
 
-    @PostMapping("/audio")
-    public String convertAndUpload(  @RequestPart("file") MultipartFile file,
-                                     @RequestPart("name") String name) throws IOException {
-        return s3Service.storeAudio(file, name);
-    }
 
-    @GetMapping("/audio")
-    public String getFile(@RequestParam("name") String name) {
-        return s3Service.getAudio(name);
-    }
+
+//    @GetMapping("/audio")
+//    public String getFile(@RequestParam("name") String name) {
+//        return s3Service.getAudio(name);
+//    }
 
 }
