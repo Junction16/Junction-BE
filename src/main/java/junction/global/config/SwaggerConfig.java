@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "밥버디의 API 명세서",
+                title = "정션의 API 명세서",
                 description = "API 명세서",
                 version = "v1",
                 contact = @Contact(
-                        name = "최 & 배",
+                        name = "최승호",
                         email = "chltmdgh517@naver.com"
                 )
         )
