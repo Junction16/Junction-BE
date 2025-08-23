@@ -3,6 +3,7 @@ package junction.global.config;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
@@ -19,7 +20,10 @@ import org.springframework.context.annotation.Configuration;
                         name = "최승호",
                         email = "chltmdgh517@naver.com"
                 )
-        )
+        ),
+        servers = {
+                @Server(url = "https://flow.madras.p-e.kr", description = "Production Server")
+        }
 )
 @Configuration
 public class SwaggerConfig {
