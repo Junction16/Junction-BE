@@ -78,14 +78,15 @@ public class VocaServiceImpl implements VocaService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
 
-        List<Voca> vocaDB = vocaRepository.findByUserAndVocaType(user,vocaType);
+        List<Voca> vocaALL = vocaRepository.findByUser(user);
+        List<Voca> vocaDB = vocaRepository.findByUserAndVocaType(user, vocaType);
         List<VocaRes> result = new ArrayList<>();
 
         for (Voca voca : vocaDB) {
             result.add(VocaRes.of(voca));
         }
 
-        return VocaSelectRes.of((long) result.size(), result);
+        return VocaSelectRes.of((long) vocaALL.size(), result);
 
 
     }
