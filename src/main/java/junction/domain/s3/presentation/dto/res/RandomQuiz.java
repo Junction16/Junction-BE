@@ -21,7 +21,7 @@ public record RandomQuiz(
         @Schema(description = "영상 URL", example = "https://bucket.s3.ap-northeast-2.amazonaws.com/video1.mp4")
         String videoUrl,
 
-        @Schema(description = "영상 타입", example = "QUIZ")
+        @Schema(description = "영상 타입", example = "BLANK, SYNONYM")
         VideoType videoType,
 
         @Schema(description = "영상과 관련된 대화/스크립트", example = "This is a sample chat text")

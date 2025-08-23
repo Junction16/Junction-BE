@@ -42,7 +42,7 @@ public class S3Controller {
                           @RequestPart("videoType") VideoType videoType,
                           @RequestPart("sentence") String sentence) throws IOException {
 
-        return s3Service.storeFile(video, name, compareWord, successWord, videoType, caption, sentence);
+        return s3Service.storeFile(video, name, compareWord, successWord, videoType, caption, sentence,"");
     }
 
     @Operation(summary = "퀴즈 랜덤 조회", description = "videoType별 퀴즈를 랜덤으로 조회합니다.")

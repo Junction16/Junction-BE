@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface S3Service {
     String storeFile(MultipartFile multipartFile,  String successWord, String name, String caption,
-                     VideoType videoType, String sentence, String compareWord) throws IOException;
+                     VideoType videoType, String sentence, String compareWord, String chat) throws IOException;
 
     RandomQuiz randomQuizSelect(VideoType videoType);
 

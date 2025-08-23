@@ -42,6 +42,7 @@ public class S3Video {
     // 비디오 링크
     private String videoUrl;
 
+    @Enumerated(EnumType.STRING)
     // 비디오 타입 어떤 유형인지
     private VideoType videoType;
 

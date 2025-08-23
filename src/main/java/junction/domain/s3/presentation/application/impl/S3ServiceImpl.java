@@ -50,7 +50,7 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public String storeFile(MultipartFile multipartFile, String successWord, String name, String caption,
-                            VideoType videoType, String sentence, String compareWord) throws IOException {
+                            VideoType videoType, String sentence, String compareWord, String chat) throws IOException {
         if (multipartFile.isEmpty()) {
             return null;
         }
@@ -83,7 +83,7 @@ public class S3ServiceImpl implements S3Service {
                 .successWord(successWord)
                 .videoType(videoType)
                 .sentence(sentence)
-                .chat("")
+                .chat(chat)
                 .compareWord(compareWord)
                 .build();
 
