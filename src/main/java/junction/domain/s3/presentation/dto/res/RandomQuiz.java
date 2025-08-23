@@ -30,6 +30,9 @@ public record RandomQuiz(
         @Schema(description = "비교 대상 단어", example = "weak")
         String compareWord,
 
+        @Schema(description = "한국형 문장 즉 번역본", example = "가나다라마바사")
+        String korea,
+
         @Schema(description = "퀴즈 보기를 담은 리스트")
         List<ChoiceRes> choices
 ) {
@@ -42,6 +45,7 @@ public record RandomQuiz(
                 s3Video.getVideoType(),
                 s3Video.getChat(),
                 s3Video.getCompareWord(),
+                s3Video.getKorea(),
                 choices
         );
     }

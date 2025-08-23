@@ -30,6 +30,8 @@ public class S3Video {
     // 이름
     private String name;
 
+    private String korea;
+
     // 예문
     private String sentence;
 
@@ -52,12 +54,13 @@ public class S3Video {
 
     @Builder
     public S3Video(String name, String sentence,String successWord,
-                   String videoUrl, VideoType videoType, String chat){
+                   String videoUrl, VideoType videoType, String chat, String korea){
         this.name= name;
         this.sentence= sentence;
         this.successWord = successWord;
         this.videoUrl = videoUrl;
         this.videoType = videoType;
         this.chat= chat;
+        this.korea=korea;
     }
 }
