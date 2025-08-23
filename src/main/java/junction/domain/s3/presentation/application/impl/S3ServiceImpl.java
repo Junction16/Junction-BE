@@ -143,6 +143,8 @@ public class S3ServiceImpl implements S3Service {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
 
+
+
         S3Video s3Video = s3VideoRepository.findById(req.videoId())
                 .orElseThrow(() -> new JunctionException(ErrorCode.VIDEO_NOT_EXIST));
 
