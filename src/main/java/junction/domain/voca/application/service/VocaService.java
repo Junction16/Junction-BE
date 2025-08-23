@@ -10,5 +10,5 @@ public interface VocaService {
 
     List<VocaAIRes> vocaAI(String userId, String voteType);
 
-    VocaSelectRes vocaSelect(String userId);
+    VocaSelectRes vocaSelect(String vocaType, String userId);
 }

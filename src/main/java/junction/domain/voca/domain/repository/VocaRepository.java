@@ -10,4 +10,6 @@ public interface VocaRepository extends JpaRepository<Voca, Long> {
 
     // 유저 엔티티 자체로 조회
     List<Voca> findByUser(User user);
+
+    List<Voca> findByUserAndVocaType(User user, String vocaType);
 }

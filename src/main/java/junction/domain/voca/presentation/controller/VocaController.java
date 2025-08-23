@@ -41,7 +41,9 @@ public class VocaController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     @GetMapping("/voca")
-    public ResponseEntity<VocaSelectRes> vocaSelect(@AuthenticationPrincipal String userId) {
-        return ResponseEntity.ok(vocaService.vocaSelect(userId));
+    public ResponseEntity<VocaSelectRes> vocaSelect(
+            @RequestParam String vocaType,
+            @AuthenticationPrincipal String userId) {
+        return ResponseEntity.ok(vocaService.vocaSelect(vocaType, userId));
     }
 }

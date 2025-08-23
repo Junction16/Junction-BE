@@ -74,11 +74,11 @@ public class VocaServiceImpl implements VocaService {
     }
 
     @Override
-    public VocaSelectRes vocaSelect(String userId) {
+    public VocaSelectRes vocaSelect(String vocaType, String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
 
-        List<Voca> vocaDB = vocaRepository.findByUser(user);
+        List<Voca> vocaDB = vocaRepository.findByUserAndVocaType(user,vocaType);
         List<VocaRes> result = new ArrayList<>();
 
         for (Voca voca : vocaDB) {
