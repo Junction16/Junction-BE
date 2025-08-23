@@ -54,7 +54,7 @@ public class SecurityConfig {
                 // CORS 설정 파일로 빼기
                 .cors((cors) -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOriginPatterns(List.of("http://localhost:3000","http://flow.madras.p-e.kr","https://mindadventure.netlify.app", "http://localhost:5173"));
+                    config.setAllowedOriginPatterns(List.of("https://junction-fe-one.vercel.app","http://localhost:3000","http://flow.madras.p-e.kr","https://mindadventure.netlify.app", "http://localhost:5173"));
                     config.setAllowedMethods(Collections.singletonList("*"));
                     config.setAllowCredentials(true);
                     config.setAllowedHeaders(Collections.singletonList("*"));

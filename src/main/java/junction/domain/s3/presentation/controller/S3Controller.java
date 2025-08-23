@@ -8,7 +8,7 @@ import junction.domain.s3.presentation.application.S3Service;
 import junction.domain.s3.presentation.dto.req.PostVideoReq;
 import junction.domain.s3.presentation.dto.res.ClipRes;
 import junction.domain.s3.presentation.dto.res.RandomHomeRes;
-import junction.domain.s3.presentation.dto.res.RandomQuiz;
+import junction.domain.s3.presentation.dto.res.RandomQuizRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +53,7 @@ public class S3Controller {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     @GetMapping("/quiz")
-    public ResponseEntity<RandomQuiz> randomQuiz(@RequestParam VideoType videoType) {
+    public ResponseEntity<RandomQuizRes> randomQuiz(@RequestParam VideoType videoType) {
         return ResponseEntity.ok(s3Service.randomQuizSelect(videoType));
     }
 

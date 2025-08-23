@@ -4,7 +4,7 @@ import junction.domain.s3.domain.entity.VideoType;
 import junction.domain.s3.presentation.dto.req.PostVideoReq;
 import junction.domain.s3.presentation.dto.res.ClipRes;
 import junction.domain.s3.presentation.dto.res.RandomHomeRes;
-import junction.domain.s3.presentation.dto.res.RandomQuiz;
+import junction.domain.s3.presentation.dto.res.RandomQuizRes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public interface S3Service {
     String storeFile(MultipartFile multipartFile,  String successWord, String name, String caption,
                      VideoType videoType, String sentence, String compareWord, String chat, String korea) throws IOException;
 
-    RandomQuiz randomQuizSelect(VideoType videoType);
+    RandomQuizRes randomQuizSelect(VideoType videoType);
 
 
     List<RandomHomeRes> randomHome(String userId);

@@ -7,7 +7,7 @@ import junction.domain.s3.domain.entity.VideoType;
 import java.util.List;
 
 @Schema(description = "퀴즈 랜덤 조회 응답 DTO")
-public record RandomQuiz(
+public record RandomQuizRes(
 
         @Schema(description = "영상 ID", example = "101")
         Long id,
@@ -36,8 +36,8 @@ public record RandomQuiz(
         @Schema(description = "퀴즈 보기를 담은 리스트")
         List<ChoiceRes> choices
 ) {
-    public static RandomQuiz of(S3Video s3Video, List<ChoiceRes> choices) {
-        return new RandomQuiz(
+    public static RandomQuizRes of(S3Video s3Video, List<ChoiceRes> choices) {
+        return new RandomQuizRes(
                 s3Video.getId(),
                 s3Video.getSentence(),
                 s3Video.getSuccessWord(),

@@ -25,7 +25,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -95,7 +94,7 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
-    public RandomQuiz randomQuizSelect(VideoType videoType) {
+    public RandomQuizRes randomQuizSelect(VideoType videoType) {
         // 타입별로 가져옴 아마 5개씩일거임
         List<S3Video> all = s3VideoRepository.findAllByVideoType(videoType);
 
@@ -108,7 +107,7 @@ public class S3ServiceImpl implements S3Service {
             }
         }
 
-        if(s3Video == null) return RandomQuiz.of(null, null);
+        if(s3Video == null) return RandomQuizRes.of(null, null);
 
 
         List<S3Choice> allS3Choice = s3ChoiceRepository.findAllByS3Video(s3Video);
@@ -119,7 +118,7 @@ public class S3ServiceImpl implements S3Service {
             choiceResult.add(ChoiceRes.of(s3Choice.getDummyWord()));
         }
 
-        return RandomQuiz.of(s3Video, choiceResult);
+        return RandomQuizRes.of(s3Video, choiceResult);
     }
 
     @Override
