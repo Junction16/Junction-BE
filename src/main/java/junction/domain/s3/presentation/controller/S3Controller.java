@@ -66,7 +66,7 @@ public class S3Controller {
     })
     @GetMapping("/home")
     public ResponseEntity<List<RandomHomeRes>> randomHome(@AuthenticationPrincipal String userId) {
-        return ResponseEntity.ok(s3Service.randomHome());
+        return ResponseEntity.ok(s3Service.randomHome(userId));
     }
 
     @Operation(summary = "클립 조회", description = "현재 로그인한 사용자의 클립 정보를 조회합니다.")

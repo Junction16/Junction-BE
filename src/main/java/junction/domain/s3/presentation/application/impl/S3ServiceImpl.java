@@ -112,14 +112,15 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
-    public List<RandomHomeRes> randomHome() {
-
+    public List<RandomHomeRes> randomHome(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
         List<S3Video> all = s3VideoRepository.findAll();
         Collections.shuffle(all);
 
         List<RandomHomeRes> result = new ArrayList<>();
         for (S3Video s3Video : all) {
-            result.add(RandomHomeRes.of(s3Video.getVideoUrl(), s3Video.getChat()));
+            result.add(RandomHomeRes.of(s3Video.getVideoUrl(), s3Video.getChat(), user.getName(), user.getProfile()));
         }
         return result;
     }
@@ -142,7 +143,6 @@ public class S3ServiceImpl implements S3Service {
     public void postVideo(String userId, PostVideoReq req) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
-
 
 
         S3Video s3Video = s3VideoRepository.findById(req.videoId())

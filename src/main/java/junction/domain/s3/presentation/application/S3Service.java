@@ -18,7 +18,7 @@ public interface S3Service {
     RandomQuiz randomQuizSelect(VideoType videoType);
 
 
-    List<RandomHomeRes> randomHome();
+    List<RandomHomeRes> randomHome(String userId);
 
     ClipRes clipSelect(String userId);
 
