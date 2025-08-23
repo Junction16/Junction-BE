@@ -1,8 +1,9 @@
 package junction.domain.user.domain.entity;
 
 
-
 import jakarta.persistence.*;
+import junction.domain.voca.domain.entity.Voca;
+import junction.domain.record.domain.entity.Note;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,11 +23,13 @@ public class User {
     @Column(unique = true, nullable = false)
     private String id;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Quiz> quizzes = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<QuizRecord> quizRecords = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Note> notes = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Voca> Vocas = new ArrayList<>();
+
 
     @Column(nullable = false)
     private String email;

@@ -49,8 +49,8 @@ public enum ErrorCode {
     USER_NOT_EXIST(-211, "존재하지 않는 유저입니다.", 404),
     ALLERGY_NOT_EXIST(-212, "존재하지 않는 필드입니다.", 400),
 
-    // group
-    QUIZ_NOT_EXIST(-300, "존재하지 않는 퀴즈입니다.", 404),
+    // note
+    NOTE_NOT_EXIST(-300, "존재하지 않는 기록입니다.", 404),
 
     // food
     QUIZ_RECOMMEND_NOT_EXIST(-400, "존재하지 않는 퀴즈전체 기록입니다.", 404),
@@ -63,6 +63,7 @@ public enum ErrorCode {
 
     // openAI
     OPENAI_NOT_EXIST(-500, "내용을 생성할 수 없습니다.", 500),
+    JSON_PARSE_ERROR(-500, "JSON 매핑 실패", 500),
 
     //file
     FILE_NOT_EXIST(-600, "존재하지 않는 이미지입니다.", 404);
