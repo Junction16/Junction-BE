@@ -1,9 +1,11 @@
 package junction.domain.user.presentation.controller;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import junction.domain.user.application.service.UserService;
-import junction.domain.user.presentation.dto.req.NicknameReq;
+
 import junction.domain.user.presentation.dto.res.GetMyPageRes;
-import junction.domain.user.presentation.dto.res.GetNicknameRes;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,23 +25,16 @@ public class UserController {
 
     private final UserService userService;
 
-
-    @Operation(summary = "닉넴 조회", description = "사용자 닉네임을 조회합니다.")
-    @GetMapping
-    public ResponseEntity<GetNicknameRes> getNickname(@AuthenticationPrincipal String userId) {
-        return ResponseEntity.ok(userService.getUser(userId));
+    @Operation(summary = "사용자 정보 조회", description = "사용자 정보 데이터를 줍니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공적으로 사용자 정보를 반환"),
+            @ApiResponse(responseCode = "401", description = "인증 실패 (로그인 필요)"),
+            @ApiResponse(responseCode = "500", description = "서버 내부 오류")
+    })
+    @GetMapping("/mypage")
+    public ResponseEntity<GetMyPageRes> getMyPage(@AuthenticationPrincipal String userId) {
+        return ResponseEntity.ok(userService.getMyPage(userId));
     }
-
-    @Operation(summary = "닉넴 수정", description = "사용자 닉네임을 수정합니다.")
-    @PatchMapping
-    public void updateNickname(@RequestBody @Valid NicknameReq req, @AuthenticationPrincipal String userId) {
-        userService.updateNickname(userId, req);
-    }
-
-//    @Operation(summary = "마이페이지", description = "사용자 마이페지 데이터를 줍니다.")
-//    @GetMapping("/mypage")
-//    public ResponseEntity<GetMyPageRes> getMyPage(@AuthenticationPrincipal String userId) {
-//        return ResponseEntity.ok(userService.getMyPage(userId));
-//    }
 
 }
+

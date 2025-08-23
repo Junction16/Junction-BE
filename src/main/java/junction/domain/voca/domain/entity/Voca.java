@@ -34,13 +34,18 @@ public class Voca {
 
     private String meaning; // 해석
 
-    private Voca(User user, String word, String exampleSentence, String synonym, String pronunciation, String meaning) {
+    private String vocaType; // 영어 단어 타입
+
+    private Voca(User user, String word,
+                 String exampleSentence, String synonym,
+                 String pronunciation, String meaning, String vocaType) {
         this.user = user;
         this.word = word;
         this.exampleSentence = exampleSentence;
         this.synonym = synonym;
         this.pronunciation = pronunciation;
         this.meaning = meaning;
+        this.vocaType=vocaType;
     }
 
     public static Voca of(User user, VocaAIRes dto) {
@@ -50,7 +55,8 @@ public class Voca {
                 dto.exampleSentence(),
                 dto.synonym(),
                 dto.pronunciation(),
-                dto.meaning()
+                dto.meaning(),
+                dto.vocaType()
         );
     }
 

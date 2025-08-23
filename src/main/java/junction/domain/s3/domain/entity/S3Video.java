@@ -1,10 +1,15 @@
 package junction.domain.s3.domain.entity;
 
 import jakarta.persistence.*;
+import junction.domain.record.domain.entity.Note;
+import junction.domain.voca.domain.entity.Voca;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,11 +22,22 @@ public class S3Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "s3Video", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<S3Choice>  s3Choices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "s3Video", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Note>  notes = new ArrayList<>();
     // 이름
-    String name;
+    private String name;
 
     // 예문
     private String sentence;
+
+    // 정답 단어
+    private String successWord;
+
+    // 만약 유의어면 단어 있음, 빈칸 맞추기면 null
+    private String compareWord;
 
     // 비디오 링크
     private String videoUrl;
@@ -29,15 +45,18 @@ public class S3Video {
     // 비디오 타입 어떤 유형인지
     private VideoType videoType;
 
-    // 캡션
-    private String caption;
+    // 스크립트 테이블 안만들고 한번에 팍 저장할게요
+    private String chat;
+
 
     @Builder
-    public S3Video(String name, String sentence, String videoUrl, VideoType videoType, String caption ){
+    public S3Video(String name, String sentence,String successWord,
+                   String videoUrl, VideoType videoType, String chat){
         this.name= name;
         this.sentence= sentence;
+        this.successWord = successWord;
         this.videoUrl = videoUrl;
         this.videoType = videoType;
-        this.caption = caption;
+        this.chat= chat;
     }
 }

@@ -33,13 +33,13 @@ public class VocaServiceImpl implements VocaService {
     private final UserRepository userRepository;
 
     @Override
-    public List<VocaAIRes> vocaAI(String userId, String voteType) {
+    public List<VocaAIRes> vocaAI(String userId, String vocaType) {
         // 1. user 조회
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
 
         // 2. 프롬프트 생성
-        String prompt = createdPrompt(voteType);
+        String prompt = createdPrompt(vocaType);
 
         // 3. OpenAI API 호출 → JSON 문자열 응답 받기
         String jsonResponse = openAITextService.vocaAnalyze(prompt);
@@ -55,7 +55,8 @@ public class VocaServiceImpl implements VocaService {
             // 5. JSON 문자열 → DTO 리스트 변환
             List<VocaAIRes> vocaList = objectMapper.readValue(
                     cleanedJson,
-                    new TypeReference<List<VocaAIRes>>() {}
+                    new TypeReference<List<VocaAIRes>>() {
+                    }
             );
 
             // 6. DB 저장
@@ -92,31 +93,33 @@ public class VocaServiceImpl implements VocaService {
     /**
      * OpenAI 프롬프트 생성
      */
-    private String createdPrompt(String voteType) {
+    private String createdPrompt(String vocaType) {
         return """
-        You are an English vocabulary assistant. 
-        Generate 5 vocabulary items related to the category: %s.
-        
-        For each item, return the result in **valid JSON array format** like this:
-        
-        [
-          {
-            "word": "vulnerable",
-            "pronunciation": "[ˈvʌlnərəbl]",
-            "synonym": "helpless\\nendangered\\ndefenceless",
-            "exampleSentence": "to be vulnerable to attack\\nShe looked very vulnerable standing there on her own.\\nIn cases of food poisoning, young children are especially vulnerable",
-            "meaning": "연약한, 취약한 (신체적·정서적으로 상처받기 쉬움을 나타냄)"
-          },
-          ...
-        ]
-        
-        Requirements:
-        - Exactly 5 vocabulary objects.
-        - Each object must have: word, pronunciation, synonym, exampleSentence, meaning.
-        - `synonym` must contain exactly 3 synonyms separated by line breaks (`\\n`).
-        - `exampleSentence` must contain exactly 3 example sentences separated by line breaks (`\\n`).
-        - `meaning` should be in Korean.
-        """.formatted(voteType);
+                You are an English vocabulary assistant. 
+                Generate 5 vocabulary items related to the category: %s.
+                        
+                For each item, return the result in **valid JSON array format** like this:
+                        
+                [
+                  {
+                    "word": "vulnerable",
+                    "pronunciation": "[ˈvʌlnərəbl]",
+                    "synonym": "helpless\\nendangered\\ndefenceless",
+                    "exampleSentence": "to be vulnerable to attack\\nShe looked very vulnerable standing there on her own.\\nIn cases of food poisoning, young children are especially vulnerable",
+                    "meaning": "연약한, 취약한 (신체적·정서적으로 상처받기 쉬움을 나타냄)",
+                    "vocaType": "%s"
+                  },
+                  ...
+                ]
+                        
+                Requirements:
+                - Exactly 5 vocabulary objects.
+                - Each object must have: word, pronunciation, synonym, exampleSentence, meaning, vocaType.
+                - `synonym` must contain exactly 3 synonyms separated by line breaks (`\\n`).
+                - `exampleSentence` must contain exactly 3 example sentences separated by line breaks (`\\n`).
+                - `meaning` should be in Korean.
+                - `vocaType` should always be "%s".
+                """.formatted(vocaType, vocaType, vocaType);
     }
 
     /**

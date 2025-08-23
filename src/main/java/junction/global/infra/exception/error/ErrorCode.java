@@ -51,6 +51,7 @@ public enum ErrorCode {
 
     // note
     NOTE_NOT_EXIST(-300, "존재하지 않는 기록입니다.", 404),
+    VIDEO_NOT_EXIST(-300, "존재하지 않는 영상입니다.", 404),
 
     // food
     QUIZ_RECOMMEND_NOT_EXIST(-400, "존재하지 않는 퀴즈전체 기록입니다.", 404),

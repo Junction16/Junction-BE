@@ -28,7 +28,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Voca> Vocas = new ArrayList<>();
+    private List<Voca> vocas = new ArrayList<>();
 
 
     @Column(nullable = false)
