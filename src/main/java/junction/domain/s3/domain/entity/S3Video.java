@@ -25,8 +25,8 @@ public class S3Video {
     @OneToMany(mappedBy = "s3Video", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<S3Choice>  s3Choices = new ArrayList<>();
 
-    @OneToMany(mappedBy = "s3Video", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Note>  notes = new ArrayList<>();
+    @OneToOne(mappedBy = "s3Video", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Note  notes;
     // 이름
     private String name;
 

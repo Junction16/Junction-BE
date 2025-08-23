@@ -27,7 +27,7 @@ public class Note {
     @JoinColumn(name = "user_id")   // FK 컬럼명
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s3_video_id")   // FK 컬럼명
     private S3Video s3Video;
 

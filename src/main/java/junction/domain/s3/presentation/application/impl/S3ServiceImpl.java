@@ -50,7 +50,8 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public String storeFile(MultipartFile multipartFile, String successWord, String name, String caption,
-                            VideoType videoType, String sentence, String compareWord, String chat) throws IOException {
+                            VideoType videoType, String sentence, String compareWord,
+                            String chat, String korea) throws IOException {
         if (multipartFile.isEmpty()) {
             return null;
         }
@@ -85,6 +86,7 @@ public class S3ServiceImpl implements S3Service {
                 .sentence(sentence)
                 .chat(chat)
                 .compareWord(compareWord)
+                .korea(korea)
                 .build();
 
         s3VideoRepository.save(s3Image);
@@ -96,9 +98,18 @@ public class S3ServiceImpl implements S3Service {
     public RandomQuiz randomQuizSelect(VideoType videoType) {
         // 타입별로 가져옴 아마 5개씩일거임
         List<S3Video> all = s3VideoRepository.findAllByVideoType(videoType);
-        Collections.shuffle(all);
 
-        S3Video s3Video = all.get(0);
+        S3Video s3Video = null;
+
+        for (S3Video s3 : all) {
+            Note note = noteRepository.findByS3Video(s3).orElse(null);
+            if(note ==null){
+                s3Video = s3;
+            }
+        }
+
+        if(s3Video == null) return RandomQuiz.of(null, null);
+
 
         List<S3Choice> allS3Choice = s3ChoiceRepository.findAllByS3Video(s3Video);
 
@@ -113,14 +124,14 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public List<RandomHomeRes> randomHome(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new JunctionException(ErrorCode.USER_NOT_EXIST));
-        List<S3Video> all = s3VideoRepository.findAll();
-        Collections.shuffle(all);
+
+        List<Note> all = noteRepository.findAll();
+
 
         List<RandomHomeRes> result = new ArrayList<>();
-        for (S3Video s3Video : all) {
-            result.add(RandomHomeRes.of(s3Video.getVideoUrl(), s3Video.getChat(), user.getName(), user.getProfile()));
+        for (Note note : all) {
+            result.add(RandomHomeRes.of(note.getS3Video().getVideoUrl(),
+                    note.getS3Video().getChat(), note.getUser().getName(), note.getUser().getProfile()));
         }
         return result;
     }
