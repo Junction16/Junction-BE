@@ -102,13 +102,13 @@ public class S3ServiceImpl implements S3Service {
 
         for (S3Video s3 : all) {
             Note note = noteRepository.findByS3Video(s3).orElse(null);
-            if(note ==null){
+            if (note == null) {
                 s3Video = s3;
                 break;
             }
         }
 
-        if(s3Video == null) return RandomQuizRes.of(null, null);
+        if (s3Video == null) return RandomQuizRes.of(null, null);
 
 
         List<S3Choice> allS3Choice = s3ChoiceRepository.findAllByS3Video(s3Video);
@@ -126,12 +126,18 @@ public class S3ServiceImpl implements S3Service {
     public List<RandomHomeRes> randomHome(String userId) {
 
         List<Note> all = noteRepository.findAll();
-
-
         List<RandomHomeRes> result = new ArrayList<>();
-        for (Note note : all) {
-            result.add(RandomHomeRes.of(note.getS3Video().getVideoUrl(),
-                    note.getS3Video().getChat(), note.getUser().getName(), note.getUser().getProfile()));
+        if (all.isEmpty()) {
+            List<S3Video> sall = s3VideoRepository.findAll();
+            for (S3Video s3Video : sall) {
+                result.add(RandomHomeRes.of(s3Video.getVideoUrl(), s3Video.getChat(), null, null));
+            }
+        } else {
+
+            for (Note note : all) {
+                result.add(RandomHomeRes.of(note.getS3Video().getVideoUrl(),
+                        note.getS3Video().getChat(), note.getUser().getName(), note.getUser().getProfile()));
+            }
         }
         return result;
     }
