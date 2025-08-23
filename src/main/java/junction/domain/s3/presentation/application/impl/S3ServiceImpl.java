@@ -95,7 +95,7 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public RandomQuizRes randomQuizSelect(VideoType videoType) {
-        // 타입별로 가져옴 아마 5개씩일거임
+        // 타입별로 가져옴 아마 2개, 3개씩일거임
         List<S3Video> all = s3VideoRepository.findAllByVideoType(videoType);
 
         S3Video s3Video = null;
@@ -104,6 +104,7 @@ public class S3ServiceImpl implements S3Service {
             Note note = noteRepository.findByS3Video(s3).orElse(null);
             if(note ==null){
                 s3Video = s3;
+                break;
             }
         }
 
